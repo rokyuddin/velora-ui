@@ -51,10 +51,10 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-gray-200 dark:border-gray-800;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white text-gray-950 dark:bg-gray-950 dark:text-gray-50;
   }
 }
 
@@ -68,19 +68,62 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
+  background: rgb(209 213 219);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground));
+  background: rgb(156 163 175);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(75 85 99);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgb(107 114 128);
 }
 
 /* Sandpack customizations */
 .sp-wrapper {
-  --sp-colors-surface1: hsl(var(--background));
-  --sp-colors-surface2: hsl(var(--muted));
-  --sp-colors-surface3: hsl(var(--border));
-  --sp-colors-fg-default: hsl(var(--foreground));
-  --sp-colors-fg-muted: hsl(var(--muted-foreground));
+  --sp-colors-surface1: white;
+  --sp-colors-surface2: rgb(249 250 251);
+  --sp-colors-surface3: rgb(229 231 235);
+  --sp-colors-fg-default: rgb(17 24 39);
+  --sp-colors-fg-muted: rgb(107 114 128);
+}
+
+.dark .sp-wrapper {
+  --sp-colors-surface1: rgb(3 7 18);
+  --sp-colors-surface2: rgb(17 24 39);
+  --sp-colors-surface3: rgb(55 65 81);
+  --sp-colors-fg-default: rgb(243 244 246);
+  --sp-colors-fg-muted: rgb(156 163 175);
+}
+
+/* Accordion animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
 }
