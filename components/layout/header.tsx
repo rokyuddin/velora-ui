@@ -27,6 +27,9 @@ export function Header() {
             <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
               About
             </Link>
+            <Link href="/blog" className="text-sm font-medium hover:text-primary transition-colors">
+              Blog
+            </Link>
           </nav>
         </div>
 
