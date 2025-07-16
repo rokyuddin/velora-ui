@@ -39,7 +39,7 @@ ui/ # Reusable component primitives
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/your-username/velora.git
+git clone https://github.com/rokyuddin/velora-ui
 cd velora
 
 # 2. Install dependencies
