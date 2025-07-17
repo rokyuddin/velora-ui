@@ -1,6 +1,6 @@
 "use client";
 import { Sandpack } from "@codesandbox/sandpack-react";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
@@ -19,17 +18,16 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export default function ButtonDocsPage() {
+export default function BadgeDocsPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <h1 className="text-4xl font-bold tracking-tight">Button</h1>
+          <h1 className="text-4xl font-bold tracking-tight">Badge</h1>
           <Badge variant="secondary">Component</Badge>
         </div>
         <p className="text-xl text-muted-foreground">
-          A versatile button component with multiple variants, sizes, and
-          states.
+          A versatile badge component with multiple variants and sizes.
         </p>
       </div>
 
@@ -45,16 +43,15 @@ export default function ButtonDocsPage() {
             <CardHeader>
               <CardTitle>Basic Usage</CardTitle>
               <CardDescription>
-                The default button with primary styling
+                The default badge with primary styling
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-4">
-                <Button>Default Button</Button>
-                <Button variant="secondary">Secondary</Button>
-                <Button variant="outline">Outline</Button>
-                <Button variant="ghost">Ghost</Button>
-                <Button variant="destructive">Destructive</Button>
+                <Badge>Default Badge</Badge>
+                <Badge variant="secondary">Secondary</Badge>
+                <Badge variant="outline">Outline</Badge>
+                <Badge variant="destructive">Destructive</Badge>
               </div>
             </CardContent>
           </Card>
@@ -63,14 +60,14 @@ export default function ButtonDocsPage() {
             <CardHeader>
               <CardTitle>Sizes</CardTitle>
               <CardDescription>
-                Different button sizes for various use cases
+                Different badge sizes for various use cases
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap items-center gap-4">
-                <Button size="sm">Small</Button>
-                <Button size="default">Default</Button>
-                <Button size="lg">Large</Button>
+                <Badge>Small</Badge>
+                <Badge>Default</Badge>
+                <Badge>Large</Badge>
               </div>
             </CardContent>
           </Card>
@@ -79,7 +76,7 @@ export default function ButtonDocsPage() {
             <CardHeader>
               <CardTitle>Interactive Playground</CardTitle>
               <CardDescription>
-                Try different button configurations live
+                Try different badge configurations live
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -87,51 +84,46 @@ export default function ButtonDocsPage() {
                 template="react-ts"
                 theme="auto"
                 files={{
-                  "/App.tsx": `import { Button } from './Button'
+                  "/App.tsx": `import { Badge } from './Badge'
 
 export default function App() {
   return (
     <div className="p-8 space-y-4">
-      <h2 className="text-2xl font-bold mb-4">Button Examples</h2>
+      <h2 className="text-2xl font-bold mb-4">Badge Examples</h2>
       
       <div className="space-y-4">
         <div className="flex gap-2">
-          <Button>Primary</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="outline">Outline</Button>
+          <Badge>Primary</Badge>
+          <Badge variant="secondary">Secondary</Badge>
+          <Badge variant="outline">Outline</Badge>
         </div>
         
         <div className="flex gap-2">
-          <Button size="sm">Small</Button>
-          <Button size="default">Default</Button>
-          <Button size="lg">Large</Button>
-        </div>
-        
-        <div className="flex gap-2">
-          <Button disabled>Disabled</Button>
-          <Button variant="destructive">Delete</Button>
+          <Badge size="sm">Small</Badge>
+          <Badge size="default">Default</Badge>
+          <Badge size="lg">Large</Badge>
         </div>
       </div>
     </div>
   )
 }`,
-                  "/Button.tsx": `import React from 'react'
+                  "/Badge.tsx": `import React from 'react'
 import { cn } from './utils'
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface BadgeProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'secondary' | 'outline' | 'ghost' | 'destructive'
   size?: 'sm' | 'default' | 'lg'
   children: React.ReactNode
 }
 
-export function Button({ 
+export function Badge({ 
   variant = 'default', 
   size = 'default', 
   className, 
   children, 
   ...props 
-}: ButtonProps) {
-  const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50'
+}: BadgeProps) {
+  const baseStyles = 'inline-flex items-center justify-center rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50'
   
   const variants = {
     default: 'bg-blue-600 text-white hover:bg-blue-700',
@@ -142,13 +134,13 @@ export function Button({
   }
   
   const sizes = {
-    sm: 'h-8 px-3 text-sm',
-    default: 'h-10 px-4',
-    lg: 'h-12 px-6 text-lg'
+    sm: 'h-5 px-2 text-xs',
+    default: 'h-6 px-3',
+    lg: 'h-8 px-4 text-lg'
   }
   
   return (
-    <button
+    <span
       className={cn(
         baseStyles,
         variants[variant],
@@ -158,7 +150,7 @@ export function Button({
       {...props}
     >
       {children}
-    </button>
+    </span>
   )
 }`,
                   "/utils.ts": `export function cn(...classes: (string | undefined)[]) {
@@ -194,7 +186,7 @@ export function Button({
             </CardHeader>
             <CardContent>
               <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-                <code>{`import { Button } from '@velora/ui'`}</code>
+                <code>{`import { Badge } from '@velora/ui'`}</code>
               </pre>
             </CardContent>
           </Card>
@@ -208,9 +200,9 @@ export function Button({
                 <code>{`function Example() {
   return (
     <div className="space-x-2">
-      <Button>Primary</Button>
-      <Button variant="secondary">Secondary</Button>
-      <Button variant="outline">Outline</Button>
+      <Badge>Primary</Badge>
+      <Badge variant="secondary">Secondary</Badge>
+      <Badge variant="outline">Outline</Badge>
     </div>
   )
 }`}</code>
@@ -224,7 +216,7 @@ export function Button({
             <CardHeader>
               <CardTitle>Props</CardTitle>
               <CardDescription>
-                Available props for the Button component
+                Available props for the Badge component
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -245,9 +237,7 @@ export function Button({
                       'destructive'
                     </TableCell>
                     <TableCell className="font-mono">'default'</TableCell>
-                    <TableCell>
-                      The visual style variant of the button
-                    </TableCell>
+                    <TableCell>The visual style variant of the badge</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-mono">size</TableCell>
@@ -255,13 +245,7 @@ export function Button({
                       'sm' | 'default' | 'lg'
                     </TableCell>
                     <TableCell className="font-mono">'default'</TableCell>
-                    <TableCell>The size of the button</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-mono">disabled</TableCell>
-                    <TableCell className="font-mono text-sm">boolean</TableCell>
-                    <TableCell className="font-mono">false</TableCell>
-                    <TableCell>Whether the button is disabled</TableCell>
+                    <TableCell>The size of the badge</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-mono">children</TableCell>
@@ -269,7 +253,7 @@ export function Button({
                       ReactNode
                     </TableCell>
                     <TableCell className="font-mono">-</TableCell>
-                    <TableCell>The content of the button</TableCell>
+                    <TableCell>The content of the badge</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
