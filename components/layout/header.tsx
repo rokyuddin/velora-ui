@@ -24,8 +24,11 @@ export function Header() {
             <Link href="/docs/components/button" className="text-sm font-medium hover:text-primary transition-colors">
               Components
             </Link>
-            <Link href="#about" className="text-sm font-medium hover:text-primary transition-colors">
+            <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
               About
+            </Link>
+            <Link href="/blog" className="text-sm font-medium hover:text-primary transition-colors">
+              Blog
             </Link>
           </nav>
         </div>

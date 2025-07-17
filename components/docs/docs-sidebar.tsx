@@ -3,14 +3,21 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search } from "lucide-react"
 
-const navigation = [
+interface SidebarLink {
+  title: string
+  href: string
+}
+
+interface SidebarSection {
+  title: string
+  links: SidebarLink[]
+}
+
+const sidebarNav: SidebarSection[] = [
   {
     title: "Getting Started",
-    items: [
+    links: [
       { title: "Introduction", href: "/docs" },
       { title: "Installation", href: "/docs/installation" },
       { title: "Theming", href: "/docs/theming" },
@@ -18,19 +25,16 @@ const navigation = [
   },
   {
     title: "Components",
-    items: [
-      { title: "Button", href: "/docs/components/button" },
-      { title: "Input", href: "/docs/components/input" },
-      { title: "Card", href: "/docs/components/card" },
-      { title: "Modal", href: "/docs/components/modal" },
+    links: [
       { title: "Accordion", href: "/docs/components/accordion" },
-    ],
-  },
-  {
-    title: "Guides",
-    items: [
-      { title: "Accessibility", href: "/docs/accessibility" },
-      { title: "Contributing", href: "/docs/contributing" },
+      { title: "Avatar", href: "/docs/components/avatar" },
+      { title: "Badge", href: "/docs/components/badge" },
+      { title: "Button", href: "/docs/components/button" },
+      { title: "Card", href: "/docs/components/card" },
+      { title: "Input", href: "/docs/components/input" },
+      { title: "Modal", href: "/docs/components/modal" },
+      { title: "Table", href: "/docs/components/table" },
+      { title: "Tabs", href: "/docs/components/tabs" },
     ],
   },
 ]
@@ -39,41 +43,31 @@ export function DocsSidebar() {
   const pathname = usePathname()
 
   return (
-    <div className="w-64 border-r border-gray-200 bg-gray-50/50 dark:border-gray-800 dark:bg-gray-950/50">
-      <div className="p-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
-          <Input placeholder="Search docs..." className="pl-9" />
-        </div>
-      </div>
-
-      <div className="h-[calc(100vh-8rem)] overflow-auto">
-        <div className="p-4 space-y-6">
-          {navigation.map((section) => (
-            <div key={section.title} className="space-y-2">
-              <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                {section.title}
-              </h4>
-              <div className="space-y-1">
-                {section.items.map((item) => (
-                  <Button
-                    key={item.href}
-                    variant="ghost"
-                    size="sm"
+    <aside className="fixed top-16 left-0 z-20 hidden h-[calc(100vh-64px)] w-64 shrink-0 overflow-y-auto border-r bg-white p-6 dark:border-gray-800 dark:bg-gray-950 lg:block">
+      <nav className="flex flex-col space-y-6">
+        {sidebarNav.map((section, index) => (
+          <div key={index} className="space-y-2">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">{section.title}</h3>
+            <ul className="space-y-1">
+              {section.links.map((link, linkIndex) => (
+                <li key={linkIndex}>
+                  <Link
+                    href={link.href}
                     className={cn(
-                      "w-full justify-start",
-                      pathname === item.href && "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300",
+                      "flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800",
+                      pathname === link.href
+                        ? "bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50"
+                        : "text-gray-600 dark:text-gray-400",
                     )}
-                    asChild
                   >
-                    <Link href={item.href}>{item.title}</Link>
-                  </Button>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+                    {link.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
+    </aside>
   )
 }

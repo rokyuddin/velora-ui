@@ -1,50 +1,30 @@
-# 🌟 Velora
+# Velora ui library
 
-**Velora** is a modern, developer-friendly UI component library and documentation system.  
-Built with **Next.js**, **TypeScript** and **Tailwind CSS**, it offers:
+*Automatically synced with your [v0.dev](https://v0.dev) deployments*
 
-- ✨ Clean MDX-based documentation  
-- ⚡ Live code previews powered by Sandpack  
-- 🧱 A scalable, accessible design system for modern web apps
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/rokyuddin/v0-velora-ui-library)
+[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/Pkyy6Or9Anx)
 
----
+## Overview
 
-## 🔗 Live Preview
+This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
+Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
 
-👉 [velora.dev](https://velora-ui.vercel.app/)
+## Deployment
 
----
+Your project is live at:
 
-## 🛠 Tech Stack
+**[https://vercel.com/rokyuddin/v0-velora-ui-library](https://vercel.com/rokyuddin/v0-velora-ui-library)**
 
-- [Next.js](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [MDX](https://mdxjs.com/)
-- [Sandpack](https://sandpack.codesandbox.io/)
+## Build your app
 
----
+Continue building your app on:
 
-## 📁 Project Structure
-apps/
-velora-docs/ # Documentation site
-velora-core/ # UI component library
-packages/
-config/ # Shared config (Tailwind, ESLint, etc.)
-ui/ # Reusable component primitives
+**[https://v0.dev/chat/projects/Pkyy6Or9Anx](https://v0.dev/chat/projects/Pkyy6Or9Anx)**
 
----
+## How It Works
 
-## 🚀 Getting Started
-
-```bash
-# 1. Clone the repo
-git clone https://github.com/rokyuddin/velora-ui
-cd velora
-
-# 2. Install dependencies
-pnpm install
-
-# 3. Run the dev server
-pnpm dev
-
+1. Create and modify your project using [v0.dev](https://v0.dev)
+2. Deploy your chats from the v0 interface
+3. Changes are automatically pushed to this repository
+4. Vercel deploys the latest version from this repository

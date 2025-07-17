@@ -7,9 +7,9 @@ export default function DocsPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Welcome to Velora UI</h1>
+        <h1 className="text-4xl font-bold tracking-tight">Welcome to Velora UI Documentation</h1>
         <p className="text-xl text-muted-foreground">
-          A modern, accessible, and customizable React component library built with Tailwind CSS.
+          Explore our comprehensive guides and component references to build amazing user interfaces.
         </p>
       </div>
 
@@ -67,24 +67,17 @@ export default function DocsPage() {
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-2xl font-semibold">Getting Started</h2>
+        <h2 className="text-2xl font-semibold">How to Navigate the Docs</h2>
         <div className="prose prose-neutral dark:prose-invert max-w-none">
           <p>
-            Velora UI is designed to help you build beautiful, accessible user interfaces quickly and efficiently. Our
-            components are built with React, styled with Tailwind CSS, and follow modern design principles.
+            Use the sidebar on the left to navigate through the documentation sections. You'll find guides on getting
+            started, detailed component references, and best practices.
           </p>
-          <h3>Installation</h3>
-          <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-            <code>npm install @velora/ui</code>
-          </pre>
-          <h3>Usage</h3>
-          <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-            <code>{`import { Button } from '@velora/ui'
-
-function App() {
-  return <Button>Click me</Button>
-}`}</code>
-          </pre>
+          <p>
+            To quickly find what you're looking for, use the **search bar at the top of the sidebar**. It will filter
+            the navigation links in real-time as you type.
+          </p>
+          <p>If you have any questions or feedback, feel free to reach out to our community on GitHub or Discord.</p>
         </div>
       </div>
     </div>
