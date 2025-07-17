@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
-import { useState } from "react" // Import useState
+import { useState } from "react"
 
 const navigation = [
   {
@@ -23,7 +23,7 @@ const navigation = [
       { title: "Button", href: "/docs/components/button" },
       { title: "Input", href: "/docs/components/input" },
       { title: "Card", href: "/docs/components/card" },
-      { title: "Modal", href: "/docs/components/modal" },
+      { title: "Modal", href: "/docs/components/modal" }, // Added Modal component link
       { title: "Accordion", href: "/docs/components/accordion" },
     ],
   },
@@ -38,12 +38,11 @@ const navigation = [
 
 export function DocsSidebar() {
   const pathname = usePathname()
-  const [searchTerm, setSearchTerm] = useState("") // State for search term
+  const [searchTerm, setSearchTerm] = useState("")
 
   const filteredNavigation = navigation
     .map((section) => {
       const filteredItems = section.items.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()))
-      // Only include the section if its title matches or it has filtered items
       if (section.title.toLowerCase().includes(searchTerm.toLowerCase()) || filteredItems.length > 0) {
         return {
           ...section,
@@ -52,7 +51,7 @@ export function DocsSidebar() {
       }
       return null
     })
-    .filter(Boolean) // Remove null entries
+    .filter(Boolean)
 
   return (
     <div className="w-64 border-r border-gray-200 bg-gray-50/50 dark:border-gray-800 dark:bg-gray-950/50">
@@ -62,8 +61,8 @@ export function DocsSidebar() {
           <Input
             placeholder="Search docs..."
             className="pl-9"
-            value={searchTerm} // Bind value to state
-            onChange={(e) => setSearchTerm(e.target.value)} // Update state on change
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
