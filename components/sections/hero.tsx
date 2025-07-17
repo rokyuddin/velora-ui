@@ -1,6 +1,6 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Github } from "lucide-react"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Github } from "lucide-react";
 
 export function Hero() {
   return (
@@ -10,23 +10,22 @@ export function Hero() {
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div className="space-y-4">
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
-              Build Beautiful UIs with <span className="text-primary">Velora</span>
+              Build Beautiful UIs with{" "}
+              <span className="text-primary">Velora</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              A modern, accessible, and customizable React component library built with Tailwind CSS. Ship faster with
-              pre-built components that look great out of the box.
+              A modern, accessible, and customizable React component library
+              built with Tailwind CSS. Ship faster with pre-built components
+              that look great out of the box.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link href="/docs">
-                Get Started <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+            <Button startIcon={<ArrowRight />} size="lg" asChild>
+              <Link href="/docs">Get Started</Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
+            <Button startIcon={<Github />} size="lg" variant="outline" asChild>
               <Link href="https://github.com/velora-ui/velora" target="_blank">
-                <Github className="mr-2 h-5 w-5" />
                 View on GitHub
               </Link>
             </Button>
@@ -48,5 +47,5 @@ function App() {
         </div>
       </div>
     </section>
-  )
+  );
 }
