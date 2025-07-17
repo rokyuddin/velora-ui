@@ -62,21 +62,26 @@ const Accordion = ({
 }
 
 const AccordionItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { value: string }>(
-  ({ className, value, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn("border-b border-gray-200 dark:border-gray-800", className)}
-      data-value={value}
-      {...props}
-    />
-  ),
+  ({ className, value, ...props }, ref) => {
+    const { type, value: contextValue } = useAccordionContext()
+    const isOpen = type === "single" ? contextValue === value : (contextValue as string[]).includes(value)
+
+    return (
+      <div
+        ref={ref}
+        className={cn("border-b border-gray-200 dark:border-gray-800", className)}
+        data-value={value}
+        data-state={isOpen ? "open" : "closed"} // Add data-state for trigger and content
+        {...props}
+      />
+    )
+  },
 )
 AccordionItem.displayName = "AccordionItem"
 
 const AccordionTrigger = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
   ({ className, children, ...props }, ref) => {
     const { type, value, onValueChange, collapsible } = useAccordionContext()
-    const itemElement = React.useRef<HTMLDivElement>(null)
 
     const handleClick = () => {
       const item = ref && "current" in ref ? ref.current?.closest("[data-value]") : null
@@ -118,10 +123,12 @@ AccordionTrigger.displayName = "AccordionTrigger"
 const AccordionContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, children, ...props }, ref) => {
     const { type, value } = useAccordionContext()
+    const contentRef = React.useRef<HTMLDivElement>(null)
     const [isOpen, setIsOpen] = React.useState(false)
+    const [contentHeight, setContentHeight] = React.useState(0)
 
     React.useEffect(() => {
-      const item = ref && "current" in ref ? ref.current?.closest("[data-value]") : null
+      const item = contentRef.current?.closest("[data-value]")
       const itemValue = item?.getAttribute("data-value")
 
       if (!itemValue) return
@@ -133,19 +140,28 @@ const AccordionContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<H
       }
     }, [value, type])
 
+    // Measure content height when it becomes open
+    React.useLayoutEffect(() => {
+      if (isOpen && contentRef.current) {
+        setContentHeight(contentRef.current.scrollHeight)
+      } else if (!isOpen) {
+        setContentHeight(0)
+      }
+    }, [isOpen])
+
     return (
       <div
         ref={ref}
-        className={cn(
-          "overflow-hidden text-sm transition-all",
-          isOpen ? "animate-accordion-down" : "animate-accordion-up",
-        )}
+        className={cn("overflow-hidden transition-all duration-300 ease-in-out", className)}
         style={{
-          display: isOpen ? "block" : "none",
+          maxHeight: isOpen ? `${contentHeight}px` : "0px",
+          opacity: isOpen ? 1 : 0,
         }}
         {...props}
       >
-        <div className={cn("pb-4 pt-0", className)}>{children}</div>
+        <div ref={contentRef} className={cn("pb-4 pt-0", className)}>
+          {children}
+        </div>
       </div>
     )
   },
