@@ -1,30 +1,52 @@
-# Velora ui library
+# 🌟 Velora
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+**Velora** is a modern, developer-friendly UI component library and documentation system.  
+Built with **Next.js**, **TypeScript**, **Tailwind CSS**, and **Shadcn UI**, it offers:
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/rokyuddin/v0-velora-ui-library)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/Pkyy6Or9Anx)
+- ✨ Clean MDX-based documentation
+- ⚡ Live code previews powered by Sandpack
+- 🧱 A scalable, accessible design system for web apps
 
-## Overview
+---
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## 🔗 Live Preview
 
-## Deployment
+👉 [velora.dev](https://velora-ui.vercel.app/)
 
-Your project is live at:
+---
 
-**[https://vercel.com/rokyuddin/v0-velora-ui-library](https://vercel.com/rokyuddin/v0-velora-ui-library)**
+## 🛠 Tech Stack
 
-## Build your app
+- **Next.js** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
+- **Shadcn UI**
+- **MDX** (for docs)
+- **Sandpack** (for live code editing)
+- **Radix UI** (accessibility primitives)
 
-Continue building your app on:
+---
 
-**[https://v0.dev/chat/projects/Pkyy6Or9Anx](https://v0.dev/chat/projects/Pkyy6Or9Anx)**
+## 📁 Project Structure
 
-## How It Works
+apps/
+velora-docs/ # Main documentation site
+velora-core/ # Core UI components
+packages/
+config/ # Tailwind, shadcn, eslint, etc.
+ui/ # Shared UI primitives and components
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+---
+
+## 🚀 Getting Started
+
+```bash
+# 1. Clone the repo
+git clone git@github.com:rokyuddin/velora-ui.git
+cd velora
+
+# 2. Install dependencies
+pnpm install
+
+# 3. Run the dev server
+pnpm dev
