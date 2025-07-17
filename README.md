@@ -40,7 +40,7 @@ ui/ # Shared UI primitives and components
 
 ## 🚀 Getting Started
 
-```bash
+\`\`\`bash
 # 1. Clone the repo
 git clone git@github.com:rokyuddin/velora-ui.git
 cd velora
