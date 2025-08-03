@@ -31,6 +31,7 @@ const sidebarNav: SidebarSection[] = [
       { title: "Badge", href: "/docs/components/badge" },
       { title: "Button", href: "/docs/components/button" },
       { title: "Card", href: "/docs/components/card" },
+      { title: "Drawer", href: "/docs/components/drawer" },
       { title: "Input", href: "/docs/components/input" },
       { title: "Modal", href: "/docs/components/modal" },
       { title: "Table", href: "/docs/components/table" },

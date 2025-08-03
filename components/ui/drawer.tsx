@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
+import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
@@ -34,21 +35,43 @@ const DrawerOverlay = React.forwardRef<
 ))
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
 
+const drawerContentVariants = cva(
+  "fixed inset-x-0 z-50 mt-24 flex flex-col rounded-t-[10px] border bg-background",
+  {
+    variants: {
+      size: {
+        default: "bottom-0 h-auto",
+        sm: "bottom-0 h-[30vh]",
+        md: "bottom-0 h-[50vh]",
+        lg: "bottom-0 h-[70vh]",
+        xl: "bottom-0 h-[90vh]",
+        full: "bottom-0 h-[100vh] rounded-none",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  }
+)
+
+interface DrawerContentProps
+  extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>,
+    VariantProps<typeof drawerContentVariants> {}
+
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+  DrawerContentProps
+>(({ className, children, size, ...props }, ref) => (
   <DrawerPortal>
     <DrawerOverlay />
     <DrawerPrimitive.Content
       ref={ref}
-      className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
-        className
-      )}
+      className={cn(drawerContentVariants({ size }), className)}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
+      {size !== "full" && (
+        <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
+      )}
       {children}
     </DrawerPrimitive.Content>
   </DrawerPortal>
@@ -104,6 +127,30 @@ const DrawerDescription = React.forwardRef<
 ))
 DrawerDescription.displayName = DrawerPrimitive.Description.displayName
 
+// Utility component for drawer body content
+const DrawerBody = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn("flex-1 overflow-y-auto p-4", className)}
+    {...props}
+  />
+)
+DrawerBody.displayName = "DrawerBody"
+
+// Utility component for drawer handle/drag indicator
+const DrawerHandle = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn("mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted", className)}
+    {...props}
+  />
+)
+DrawerHandle.displayName = "DrawerHandle"
+
 export {
   Drawer,
   DrawerPortal,
@@ -115,4 +162,6 @@ export {
   DrawerFooter,
   DrawerTitle,
   DrawerDescription,
+  DrawerBody,
+  DrawerHandle,
 }
