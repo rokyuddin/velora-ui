@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight, Github, FileText } from "lucide-react";
 
 export function Hero() {
   return (
@@ -23,6 +23,9 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button startIcon={<ArrowRight />} size="lg" asChild>
               <Link href="/docs">Get Started</Link>
+            </Button>
+            <Button startIcon={<FileText />} size="lg" variant="secondary" asChild>
+              <Link href="/pdf-viewer">PDF Viewer</Link>
             </Button>
             <Button startIcon={<Github />} size="lg" variant="outline" asChild>
               <Link href="https://github.com/velora-ui/velora" target="_blank">
