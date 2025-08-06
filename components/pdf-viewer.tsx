@@ -1,17 +1,30 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChevronLeft, ChevronRight, Upload, FileText } from 'lucide-react';
 import { extractPDFSections, highlightPDFSection, type PDFSection } from '@/lib/pdf-utils';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
+import dynamic from 'next/dynamic';
 
-// Set up PDF.js worker
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+// Dynamically import PDF components to avoid SSR issues
+const Document = dynamic(
+  () => import('react-pdf').then((mod) => mod.Document),
+  { ssr: false }
+);
+
+const Page = dynamic(
+  () => import('react-pdf').then((mod) => mod.Page),
+  { ssr: false }
+);
+
+// Set up PDF.js worker on client side only
+if (typeof window !== 'undefined') {
+  import('react-pdf').then((reactPdf) => {
+    reactPdf.pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${reactPdf.pdfjs.version}/build/pdf.worker.min.js`;
+  });
+}
 
 export function PDFViewer() {
   const [file, setFile] = useState<File | null>(null);
@@ -19,6 +32,8 @@ export function PDFViewer() {
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
   const [sections, setSections] = useState<PDFSection[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Load sections when component mounts
@@ -28,6 +43,13 @@ export function PDFViewer() {
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
+    setLoading(false);
+    setError(null);
+  }
+
+  function onDocumentLoadError(error: Error) {
+    setError(`Failed to load PDF: ${error.message}`);
+    setLoading(false);
   }
 
   function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -36,6 +58,8 @@ export function PDFViewer() {
       setFile(selectedFile);
       setPageNumber(1);
       setSelectedSection(null);
+      setLoading(true);
+      setError(null);
     }
   }
 
@@ -113,20 +137,33 @@ export function PDFViewer() {
               <CardContent>
                 {file ? (
                   <div className="space-y-4">
-                    <div className="border rounded-lg overflow-hidden bg-white">
-                      <Document
-                        file={file}
-                        onLoadSuccess={onDocumentLoadSuccess}
-                        className="flex justify-center"
-                      >
-                        <Page
-                          pageNumber={pageNumber}
-                          width={typeof window !== 'undefined' ? Math.min(600, window.innerWidth - 100) : 600}
-                          renderTextLayer={true}
-                          renderAnnotationLayer={true}
-                        />
-                      </Document>
-                    </div>
+                    {error && (
+                      <div className="p-4 border border-red-200 bg-red-50 rounded-lg text-red-700">
+                        {error}
+                      </div>
+                    )}
+                    {loading && (
+                      <div className="flex items-center justify-center p-8">
+                        <div className="text-muted-foreground">Loading PDF...</div>
+                      </div>
+                    )}
+                    {!error && !loading && (
+                      <div className="border rounded-lg overflow-hidden bg-white">
+                        <Document
+                          file={file}
+                          onLoadSuccess={onDocumentLoadSuccess}
+                          onLoadError={onDocumentLoadError}
+                          className="flex justify-center"
+                        >
+                          <Page
+                            pageNumber={pageNumber}
+                            width={typeof window !== 'undefined' ? Math.min(600, window.innerWidth - 100) : 600}
+                            renderTextLayer={false}
+                            renderAnnotationLayer={false}
+                          />
+                        </Document>
+                      </div>
+                    )}
                     
                     {numPages && (
                       <div className="flex items-center justify-between">
